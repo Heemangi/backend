@@ -10,9 +10,18 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://heemangirupani28:Heemangirupani28@cluster0.rh7dwne.mongodb.net/SariswayEcom")
 
+require('dotenv').config();
 
+const mongoURI = process.env.MONGO_URI; 
+mongoose.connect(mongoURI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+        
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB:', error);
+    });
 
 app.get("/",(req,res)=>{
     res.send("Express App is Running");
